@@ -1,0 +1,9 @@
+# Node.js関連のファイル
+/node_modules
+
+# Python仮想環境
+/env
+
+# OSやエディタ固有のファイル
+.DS_Store
+*.log
