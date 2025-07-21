@@ -11,7 +11,6 @@ class User(Base):
     hashed_password = Column(String)
     todos = relationship("Todo", back_populates="user")
 
-
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.sql import func
 
