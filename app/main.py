@@ -3,27 +3,27 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routes import auth, todos
 from .database import Base, engine
 
-# データベースの初期化
+# モデルをDBに作成
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# CORS の設定
+# CORS設定（React側との通信を許可）
 origins = [
-    "http://localhost",  # フロントエンドが動作しているドメイン
-    "http://127.0.0.1:3000",  # 必要に応じて他のオリジンも追加
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
-# CORS ミドルウェアの設定
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 必要に応じて特定のオリジンを指定
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # すべての HTTP メソッドを許可
-    allow_headers=["*"],  # すべてのヘッダーを許可
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# ルーターを追加
-app.include_router(auth.router)
-app.include_router(todos.router)
+# 認証ルーター → /auth/login などで使える
+app.include_router(auth.router, prefix="/auth")
 
+# todosルーター → prefix無しで `/` 直下にルーティングされる
+app.include_router(todos.router)
