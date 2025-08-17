@@ -17,6 +17,7 @@ class TodoResponse(TodoBase):
     createdAt: datetime  # 作成日時
     updatedAt: datetime  # 更新日時
     completed: bool  # 完了フラグ
+    user_id: int  # ユーザーID
 
     class Config:
         # ORM（データベースモデル）からデータを読み取る設定
