@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import auth, todos
-from .database import Base, engine
+
+# 相対インポート → 絶対インポートに変更
+from app.routes import auth, todos
+from app.database import Base, engine
 
 # モデルをDBに作成
 Base.metadata.create_all(bind=engine)
